@@ -1,4 +1,3 @@
-require('react/addons');
 import React from 'react/addons';
 import Actions from '../actions';
 import dispatcher from '../dispatcher';
@@ -20,8 +19,8 @@ class EntrySearch extends React.Component {
 class Entry extends React.Component {
   render() {
     return <div className={this.props.entry['@level'] + " entry"}>
-      <span className="timestamp">{this.props.entry['@timestamp']}</span>
-      {this.props.entry['@message']}
+      <div className="timestamp">{this.props.entry['@timestamp']}</div>
+      <div className="message">{this.props.entry['@message']}</div>
     </div>;
   }
 }
@@ -36,10 +35,12 @@ class EntryList extends React.Component {
   }
 
   render() {
-    var entries = this.state.entries.map((entry) => {return <Entry key={entry.id} entry={entry}/>});
-    return <div className="entries">
-      <EntrySearch/>
-      <div>
+    var entries = this.state.entries.map((entry) => {
+      return <Entry key={entry._id} entry={entry._source}/>
+    });
+    return <div>
+      <EntrySearch className="pure-u-1-1"/>
+      <div className="pure-u-1-1">
         {entries}
       </div>
     </div>;

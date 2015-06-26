@@ -21,7 +21,7 @@ class EntryStoreClass extends EventEmitter {
     fetch(`http://localhost:9200/poirot-*/logentry/_search?q=${query}`, { method: 'GET' })
       .then((res) => { return res.json() })
       .then((res) => {
-        this.entries = res.hits.hits.map((entry) => { return entry._source });
+        this.entries = res.hits.hits;
         this.emit('change');
       });
   }

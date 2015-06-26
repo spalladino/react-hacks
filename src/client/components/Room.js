@@ -1,4 +1,3 @@
-require('react/addons');
 import React from 'react/addons';
 import Actions from '../actions';
 import dispatcher from '../dispatcher';
