@@ -1,0 +1,25 @@
+{
+  "name": "hackaton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "webpack": "webpack --config config/webpack.js",
+    "webpack-watch": "webpack --config config/webpack.js --watch --colors"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "babel": "^5.6.14",
+    "babel-core": "^5.6.14",
+    "babel-loader": "^5.2.2",
+    "node-libs-browser": "^0.5.2",
+    "node-static": "^0.7.6",
+    "webpack": "^1.9.12"
+  }
+}
