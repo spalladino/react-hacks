@@ -1,40 +1,11 @@
+import Reflux from 'reflux';
 import React from 'react/addons';
 import Actions from '../actions';
-import dispatcher from '../dispatcher';
+import EntryStore from '../stores/EntryStore'
 
-class EntrySearch extends React.Component {
-  render() {
-    return <div className="searchbox">
-      <input type="search" onKeyDown={this.onKeyDown.bind(this)}/>
-    </div>;
-  }
-
-  onKeyDown(ev) {
-    if (ev.keyCode == 13) {
-      dispatcher.dispatch(Actions.searchEntries(ev.target.value));
-    }
-  }
-}
-
-class Entry extends React.Component {
-  render() {
-    return <div className={this.props.entry['@level'] + " entry"}>
-      <div className="timestamp">{this.props.entry['@timestamp']}</div>
-      <div className="message">{this.props.entry['@message']}</div>
-    </div>;
-  }
-}
-
-class EntryList extends React.Component {
-  constructor(props) {
-    super(props);
-    props.store.on('change', () => {
-      this.setState({ entries: props.store.getEntries() });
-    });
-    this.state = { entries: [] };
-  }
-
-  render() {
+var EntryList = React.createClass({
+  mixins: [Reflux.connect(EntryStore)],
+  render: function() {
     var entries = this.state.entries.map((entry) => {
       return <Entry key={entry._id} entry={entry._source}/>
     });
@@ -45,7 +16,31 @@ class EntryList extends React.Component {
       </div>
     </div>;
   }
-}
+});
+
+var EntrySearch = React.createClass({
+  render: function() {
+    return <div className="searchbox">
+      <input type="search" onKeyDown={this.onKeyDown}/>
+    </div>;
+  },
+
+  onKeyDown: function(ev) {
+    if (ev.keyCode == 13) {
+      Actions.searchEntries(ev.target.value);
+    }
+  }
+});
+
+
+var Entry = React.createClass({
+  render: function() {
+    return <div className={this.props.entry['@level'] + " entry"}>
+      <div className="timestamp">{this.props.entry['@timestamp']}</div>
+      <div className="message">{this.props.entry['@message']}</div>
+    </div>;
+  }
+});
 
 export default EntryList;
 

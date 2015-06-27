@@ -1,12 +1,7 @@
-var Actions = {
-  setActive(newvalue) {
-    return { actionType: 'set_active', value: newvalue };
-  },
+import Reflux from 'reflux';
 
-  searchEntries(query) {
-    return { actionType: 'search_entries', query: query };
-  }
-};
+var Actions = {};
+Actions.searchEntries = Reflux.createAction({asyncResult: true});
 
 export default Actions;
 
