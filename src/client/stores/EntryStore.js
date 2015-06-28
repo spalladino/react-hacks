@@ -6,20 +6,30 @@ var EntryStore = Reflux.createStore({
   listenables: Actions,
 
   getInitialState: function() {
+    this.state = { entries: [], page: 1, query: "" };
     this.fetchEntries();
-    return { entries: [] }
+    return this.state;
+  },
+
+  onPageChange: function(pageNum) {
+    this.state.page = pageNum;
+    this.fetchEntries();
   },
 
   onSearchEntries: function(query) {
-    this.fetchEntries(query);
+    this.state.query = query;
+    this.state.page = 1;
+    this.fetchEntries();
   },
 
   onSearchEntriesCompleted: function(entries) {
-    this.trigger({entries: entries});
+    this.state.entries = entries;
+    this.trigger(this.state);
   },
 
-  fetchEntries: function(query) {
-    fetch(`http://localhost:9200/poirot-*/logentry/_search?q=${query}`, { method: 'GET' })
+  fetchEntries: function() {
+    var q = (this.state.query && this.state.query.length > 0) ? `&q=${this.state.query}` : "";
+    fetch(`http://localhost:9200/poirot-*/logentry/_search?from=${(this.state.page-1)*10}&size=10${q}`, { method: 'GET' })
       .then((res) => { return res.json() })
       .then((res) => { Actions.searchEntries.completed(res.hits.hits); });
   }

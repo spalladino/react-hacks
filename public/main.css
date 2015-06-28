@@ -1,5 +1,21 @@
+#app {
+  margin: 10px;
+}
+
+.pager {
+  width: 100%;
+  text-align: center;
+}
+
+.pager .pageNumber {
+  width: 30px;
+  text-align: center;
+  margin: 10px;
+}
+
 .entry {
   background: lightgrey;
+  margin: 5px;
 }
 
 .message {
