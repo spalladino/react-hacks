@@ -3,6 +3,7 @@ import React from 'react/addons';
 import Actions from '../actions';
 import EntryStore from '../stores/EntryStore';
 import Pager from './Pager';
+import InfinityScroll from './InfinityScroll';
 
 var EntryList = React.createClass({
   mixins: [Reflux.connect(EntryStore)],
@@ -16,9 +17,7 @@ var EntryList = React.createClass({
       <div className="pure-u-1-1">
         {entries}
       </div>
-      <div className="pure-u-1-1">
-        <Pager currentPage={this.state.page} numPages={this.state.total / this.state.pageSize} onPageChange={Actions.pageChange} />
-      </div>
+      <InfinityScroll onScrollToEnd={Actions.loadMoreEntries} />
     </div>;
   }
 });
