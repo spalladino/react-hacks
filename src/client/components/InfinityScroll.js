@@ -17,6 +17,13 @@ var InfinityScroll = React.createClass({
       }
     };
     return <div />;
+  },
+
+  // TODO: Reimplement using these two
+  componentDidMount: function() {
+  },
+
+  componentWillUnmount: function() {
   }
 
 });

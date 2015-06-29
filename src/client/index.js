@@ -1,9 +1,5 @@
-require('react/addons');
 import React from 'react/addons';
-import EntryList from './components/EntryList';
-import EntryStore from './stores/EntryStore';
+import routes from './routes';
 
 var rootElement = document.getElementById('app');
-var rootComponent = <EntryList store={EntryStore}/>;
-
-React.render(rootComponent, rootElement);
+React.render(routes, rootElement);

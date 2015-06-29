@@ -7,7 +7,7 @@ var EntryStore = Reflux.createStore({
   pageSize: 20,
 
   getInitialState: function() {
-    this.state = { entries: [], page: 1, query: "", total: 0 };
+    this.state = { entries: [], page: 1, query: "", total: 0, selectedEntry: null };
     this.fetchEntries();
     return this.state;
   },
@@ -41,6 +41,17 @@ var EntryStore = Reflux.createStore({
     this.state.entries = this.state.entries.concat(hits.hits);
     this.state.total = hits.total;
     this.state.loadingMoreEntries = false;
+    this.trigger(this.state);
+  },
+
+  onLoadEntryDetails: function(index, id) {
+    fetch(`http://localhost:9200/${index}/logentry/${id}`, { method: 'GET' })
+      .then((res) => { return res.json() })
+      .then((res) => { Actions.loadEntryDetails.completed(res._source); });
+  },
+
+  onLoadEntryDetailsCompleted: function(entry) {
+    this.state.selectedEntry = entry;
     this.trigger(this.state);
   },
 

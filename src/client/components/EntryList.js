@@ -4,13 +4,17 @@ import Actions from '../actions';
 import EntryStore from '../stores/EntryStore';
 import Pager from './Pager';
 import InfinityScroll from './InfinityScroll';
+import Link from 'react-router/lib/Link';
+
 
 var EntryList = React.createClass({
   mixins: [Reflux.connect(EntryStore)],
 
   render: function() {
     var entries = this.state.entries.map((entry) => {
-      return <Entry key={entry._id} entry={entry._source}/>
+      return <Link to={`/entries/${entry._index}/${entry._id}`} key={entry._id}>
+        <Entry entry={entry._source}/>
+      </Link>;
     });
     return <div className="pure-u-1-1">
       <EntrySearch className="pure-u-1-1"/>
