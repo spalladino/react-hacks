@@ -17,7 +17,7 @@ var EntryList = React.createClass({
         {entries}
       </div>
       <div className="pure-u-1-1">
-        <Pager currentPage={this.state.page} numPages="10" onPageChange={Actions.pageChange} />
+        <Pager currentPage={this.state.page} numPages={this.state.total / this.state.pageSize} onPageChange={Actions.pageChange} />
       </div>
     </div>;
   }
